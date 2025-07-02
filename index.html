@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trình Quản Lý Đội Xe Du Lịch (Offline)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .modal, .page-view {
+            transition: opacity 0.3s ease;
+        }
+        .nav-btn {
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .nav-btn.active {
+            background-color: #4f46e5; /* indigo-600 */
+            color: white;
+        }
+        .report-section h4 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            margin-bottom: 0.5rem; /* mb-2 */
+            padding-top: 1rem; /* pt-4 */
+            border-top: 1px solid #e5e7eb; /* border-t */
+        }
+        .print-button {
+            background-color: #4b5563; /* gray-600 */
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .print-button:hover {
+            background-color: #374151; /* gray-700 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-6">
+        <header class="text-center mb-6 flex flex-col items-center">
+            <img id="company-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAJYBAADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1VZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+qaKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigA-`
+" alt="Logo Công Ty" class="h-24 w-auto mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Trình Quản Lý Đội Xe Du Lịch</h1>
+            <p class="text-gray-600 mt-2">Dễ dàng theo dõi và quản lý mọi chuyến đi.</p>
+        </header>
+
+        <!-- Thanh Menu Điều Hướng -->
+        <nav class="bg-white rounded-xl shadow-md p-2 flex flex-wrap justify-center gap-2 mb-6">
+            <button data-page="add-trip-page" class="nav-btn active flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Thêm Chuyến Đi</button>
+            <button data-page="trips-list-page" class="nav-btn flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Danh Sách Chuyến Đi</button>
+            <button data-page="report-page" class="nav-btn flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Báo Cáo Tháng</button>
+            <button data-page="customer-debt-page" class="nav-btn flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Công Nợ Khách Hàng</button>
+            <button data-page="management-page" class="nav-btn flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Quản Lý</button>
+        </nav>
+
+        <main>
+            <!-- Trang 1: Thêm Chuyến Đi -->
+            <div id="add-trip-page" class="page-view">
+                <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-semibold mb-6 border-b pb-3">Thêm Chuyến Đi Mới</h2>
+                    <form id="trip-form" class="space-y-4">
+                        <div><label for="car-select" class="block text-sm font-medium text-gray-700">Chọn Xe</label><select id="car-select" name="car-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
+                        <div><label for="driver-select" class="block text-sm font-medium text-gray-700">Chọn Lái Xe</label><select id="driver-select" name="driver-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
+                        <div><label for="customer-select" class="block text-sm font-medium text-gray-700">Chọn Khách Hàng</label><select id="customer-select" name="customer-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
+                        <div><label for="start-km" class="block text-sm font-medium text-gray-700">Số KM Bắt Đầu</label><input type="number" id="start-km" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        <div><label for="end-km" class="block text-sm font-medium text-gray-700">Số KM Kết Thúc</label><input type="number" id="end-km" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        <div><label for="pickup-location" class="block text-sm font-medium text-gray-700">Điểm Đón Khách</label><input type="text" id="pickup-location" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        <div><label for="dropoff-location" class="block text-sm font-medium text-gray-700">Điểm Trả Khách</label><input type="text" id="dropoff-location" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        <div><label for="fuel-cost" class="block text-sm font-medium text-gray-700">Tiền Đổ Xăng (VND)</label><input type="number" id="fuel-cost" value="0" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        <div><label for="trip-fare" class="block text-sm font-medium text-gray-700">Doanh Thu Chuyến Đi (VND)</label><input type="number" id="trip-fare" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        <div class="flex items-center"><input id="is-paid" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"><label for="is-paid" class="ml-2 block text-sm text-gray-900">Đã thanh toán</label></div>
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300">Lưu Chuyến Đi</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Trang 2: Danh Sách Chuyến Đi -->
+            <div id="trips-list-page" class="page-view hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Các Chuyến Đi Gần Đây</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Xe</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tài xế</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khách Hàng</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th></tr></thead><tbody id="trips-list" class="bg-white divide-y divide-gray-200"></tbody></table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trang 3: Báo Cáo Tháng -->
+            <div id="report-page" class="page-view hidden">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Thống Kê Theo Tháng</h2>
+                    <div class="flex flex-wrap items-center gap-4 mb-4">
+                        <input type="month" id="report-month" class="block border border-gray-300 rounded-md shadow-sm py-2 px-3" value="">
+                        <button id="generate-report-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg">Xem Báo Cáo</button>
+                    </div>
+                    <div id="report-results" class="space-y-3 hidden">
+                        <div id="summary-report-wrapper">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-semibold">Báo cáo tổng quan cho tháng <span id="report-month-display"></span>:</h3>
+                                <button onclick="printReport('summary-report-content', 'Báo Cáo Tổng Quan')" class="print-button">In Báo Cáo</button>
+                            </div>
+                            <div id="summary-report-content">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div class="bg-blue-100 p-4 rounded-lg"><p class="text-sm text-blue-800 font-medium">Tổng Doanh Thu</p><p id="total-revenue" class="text-2xl font-bold text-blue-900">0 VND</p></div>
+                                    <div class="bg-orange-100 p-4 rounded-lg"><p class="text-sm text-orange-800 font-medium">Tổng Tiền Xăng</p><p id="total-fuel" class="text-2xl font-bold text-orange-900">0 VND</p></div>
+                                    <div class="bg-yellow-100 p-4 rounded-lg"><p class="text-sm text-yellow-800 font-medium">Tổng Lương Tài Xế</p><p id="total-salaries" class="text-2xl font-bold text-yellow-900">0 VND</p></div>
+                                    <div class="bg-red-100 p-4 rounded-lg lg:col-span-1 sm:col-span-2"><p class="text-sm text-red-800 font-medium">Tổng Chi Phí (Xăng + Lương)</p><p id="total-expenses" class="text-2xl font-bold text-red-900">0 VND</p></div>
+                                    <div class="bg-green-100 p-4 rounded-lg lg:col-span-2"><p class="text-sm text-green-800 font-medium">Lợi Nhuận</p><p id="net-profit" class="text-2xl font-bold text-green-900">0 VND</p></div>
+                                </div>
+                                <div id="car-summary-report" class="report-section"></div>
+                                <div id="driver-summary-report" class="report-section"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="detailed-reports" class="mt-6 pt-6 border-t">
+                         <h3 class="text-xl font-semibold mb-4">Xem Báo Cáo Chi Tiết</h3>
+                         <div class="flex flex-wrap gap-4">
+                            <div class="flex-1 min-w-[250px]"><label for="report-car-select" class="block text-sm font-medium text-gray-700">Chọn xe để xem chi tiết</label><select id="report-car-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm"></select></div>
+                            <div class="flex-1 min-w-[250px]"><label for="report-driver-select" class="block text-sm font-medium text-gray-700">Chọn tài xế để xem chi tiết</label><select id="report-driver-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm"></select></div>
+                         </div>
+                         <div id="car-detail-report" class="report-section mt-4"></div>
+                         <div id="driver-detail-report" class="report-section mt-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trang 4: Công Nợ Khách Hàng -->
+            <div id="customer-debt-page" class="page-view hidden">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Công Nợ Khách Hàng</h2>
+                    <div class="mb-4">
+                        <label for="debt-customer-select" class="block text-sm font-medium text-gray-700">Lọc theo khách hàng</label>
+                        <select id="debt-customer-select" class="mt-1 block w-full md:w-1/2 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm"></select>
+                    </div>
+                    <div id="debt-list" class="space-y-6"></div>
+                </div>
+            </div>
+
+            <!-- Trang 5: Quản Lý -->
+            <div id="management-page" class="page-view hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Quản Lý Xe</h2>
+                        <form id="add-car-form" class="flex items-center space-x-2 mb-4"><input type="text" id="new-car-name" placeholder="Tên xe và biển số" class="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3" required><button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Thêm</button></form>
+                        <div id="car-list" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Quản Lý Lái Xe</h2>
+                        <form id="add-driver-form" class="flex items-center space-x-2 mb-4"><input type="text" id="new-driver-name" placeholder="Tên lái xe" class="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3" required><button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Thêm</button></form>
+                        <div id="driver-list" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Quản Lý Khách Hàng</h2>
+                        <form id="add-customer-form" class="flex items-center space-x-2 mb-4"><input type="text" id="new-customer-name" placeholder="Tên khách hàng" class="flex-grow border border-gray-300 rounded-md shadow-sm py-2 px-3" required><button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Thêm</button></form>
+                        <div id="customer-list" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="trip-detail-modal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"><div class="relative top-20 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white"><div class="flex justify-between items-center border-b pb-3"><h3 class="text-2xl font-bold text-gray-900">Chi Tiết Chuyến Đi</h3><button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button></div><div id="modal-content" class="mt-4 space-y-4"></div></div></div>
+    <div id="confirm-delete-modal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"><div class="relative top-40 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white"><div class="mt-3 text-center"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div><h3 class="text-lg leading-6 font-medium text-gray-900 mt-4" id="confirm-title">Xóa mục này?</h3><div class="mt-2 px-7 py-3"><p class="text-sm text-gray-500" id="confirm-message">Bạn có chắc chắn muốn thực hiện hành động này không? Thao tác này không thể hoàn tác.</p></div><div class="items-center px-4 py-3 space-x-4"><button id="confirm-delete-btn" class="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md w-auto hover:bg-red-700">Xóa</button><button id="cancel-delete-btn" class="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-auto hover:bg-gray-300">Hủy</button></div></div></div></div>
+
+    <script>
+        let onConfirmDelete = null;
+        const currencyFormatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
+
+        const db = {
+            get: (key) => JSON.parse(localStorage.getItem(key) || '[]'),
+            set: (key, data) => localStorage.setItem(key, JSON.stringify(data)),
+        };
+
+        function main() {
+            setupNavigation();
+            setupEventListeners();
+            loadCars();
+            loadDrivers();
+            loadCustomers();
+            loadAndRenderTrips();
+            populateReportFilters();
+            document.getElementById('report-month').value = new Date().toISOString().slice(0, 7);
+        }
+        
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const pages = document.querySelectorAll('.page-view');
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetPageId = button.dataset.page;
+                    pages.forEach(page => page.classList.add('hidden'));
+                    document.getElementById(targetPageId).classList.remove('hidden');
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    if (targetPageId === 'report-page') {
+                        populateReportFilters();
+                    }
+                    if (targetPageId === 'customer-debt-page') {
+                        populateDebtCustomerFilter();
+                        loadAndRenderCustomerDebts();
+                    }
+                });
+            });
+        }
+
+        function setupEventListeners() {
+            document.getElementById('trip-form').addEventListener('submit', handleAddTrip);
+            document.getElementById('generate-report-btn').addEventListener('click', generateMonthlyReport);
+            document.getElementById('add-car-form').addEventListener('submit', handleAddCar);
+            document.getElementById('add-driver-form').addEventListener('submit', handleAddDriver);
+            document.getElementById('add-customer-form').addEventListener('submit', handleAddCustomer);
+            document.getElementById('report-car-select').addEventListener('change', generateDetailedCarReport);
+            document.getElementById('report-driver-select').addEventListener('change', generateDetailedDriverReport);
+            document.getElementById('debt-customer-select').addEventListener('change', loadAndRenderCustomerDebts);
+            
+            const tripDetailModal = document.getElementById('trip-detail-modal');
+            const confirmDeleteModal = document.getElementById('confirm-delete-modal');
+            document.getElementById('close-modal-btn').addEventListener('click', () => tripDetailModal.classList.add('hidden'));
+            document.getElementById('cancel-delete-btn').addEventListener('click', () => {
+                confirmDeleteModal.classList.add('hidden');
+                onConfirmDelete = null;
+            });
+            document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+                if (typeof onConfirmDelete === 'function') onConfirmDelete();
+                confirmDeleteModal.classList.add('hidden');
+                onConfirmDelete = null;
+            });
+            window.addEventListener('click', (event) => {
+                if (event.target == tripDetailModal) tripDetailModal.classList.add('hidden');
+                if (event.target == confirmDeleteModal) confirmDeleteModal.classList.add('hidden');
+            });
+        }
+
+        function showConfirmModal(title, message, onConfirmCallback) {
+            document.getElementById('confirm-title').textContent = title;
+            document.getElementById('confirm-message').textContent = message;
+            onConfirmDelete = onConfirmCallback;
+            document.getElementById('confirm-delete-modal').classList.remove('hidden');
+        }
+
+        function handleAddCar(e) {
+            e.preventDefault();
+            const newCarNameInput = document.getElementById('new-car-name');
+            const carName = newCarNameInput.value.trim();
+            if (carName) {
+                const cars = db.get('cars');
+                if (cars.find(c => c.name === carName)) {
+                    alert('Tên xe đã tồn tại!');
+                    return;
+                }
+                cars.push({ id: carName, name: carName });
+                db.set('cars', cars);
+                newCarNameInput.value = '';
+                loadCars();
+            }
+        }
+
+        function handleAddDriver(e) {
+            e.preventDefault();
+            const newDriverNameInput = document.getElementById('new-driver-name');
+            const driverName = newDriverNameInput.value.trim();
+            if (driverName) {
+                const drivers = db.get('drivers');
+                 if (drivers.find(d => d.name === driverName)) {
+                    alert('Tên lái xe đã tồn tại!');
+                    return;
+                }
+                drivers.push({ id: driverName, name: driverName });
+                db.set('drivers', drivers);
+                newDriverNameInput.value = '';
+                loadDrivers();
+            }
+        }
+
+        function handleAddCustomer(e) {
+            e.preventDefault();
+            const newCustomerNameInput = document.getElementById('new-customer-name');
+            const customerName = newCustomerNameInput.value.trim();
+            if (customerName) {
+                const customers = db.get('customers');
+                 if (customers.find(c => c.name === customerName)) {
+                    alert('Tên khách hàng đã tồn tại!');
+                    return;
+                }
+                customers.push({ id: customerName, name: customerName });
+                db.set('customers', customers);
+                newCustomerNameInput.value = '';
+                loadCustomers();
+            }
+        }
+        
+        function loadCars() {
+            const cars = db.get('cars');
+            const carSelect = document.getElementById('car-select');
+            const carListDiv = document.getElementById('car-list');
+            carSelect.innerHTML = ''; carListDiv.innerHTML = '';
+
+            if (cars.length === 0) {
+                carSelect.innerHTML = '<option value="">-- Vui lòng thêm xe --</option>';
+                carListDiv.innerHTML = '<p class="text-gray-500">Chưa có xe nào.</p>';
+            } else {
+                cars.forEach(car => {
+                    carSelect.innerHTML += `<option value="${car.id}">${car.name}</option>`;
+                    carListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${car.name}</span><button data-id="${car.id}" class="delete-car-btn text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
+                });
+            }
+            
+            document.querySelectorAll('.delete-car-btn').forEach(button => button.addEventListener('click', (e) => {
+                const carId = e.target.dataset.id;
+                showConfirmModal('Xóa Xe', `Bạn có chắc chắn muốn xóa xe "${carId}" không?`, () => {
+                    const currentCars = db.get('cars');
+                    const updatedCars = currentCars.filter(c => c.id !== carId);
+                    db.set('cars', updatedCars);
+                    loadCars();
+                });
+            }));
+        }
+
+        function loadDrivers() {
+            const drivers = db.get('drivers');
+            const driverSelect = document.getElementById('driver-select');
+            const driverListDiv = document.getElementById('driver-list');
+            driverSelect.innerHTML = ''; driverListDiv.innerHTML = '';
+
+            if (drivers.length === 0) {
+                driverSelect.innerHTML = '<option value="">-- Vui lòng thêm lái xe --</option>';
+                driverListDiv.innerHTML = '<p class="text-gray-500">Chưa có lái xe nào.</p>';
+            } else {
+                drivers.forEach(driver => {
+                    driverSelect.innerHTML += `<option value="${driver.id}">${driver.name}</option>`;
+                    driverListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${driver.name}</span><button data-id="${driver.id}" class="delete-driver-btn text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
+                });
+            }
+            
+            document.querySelectorAll('.delete-driver-btn').forEach(button => button.addEventListener('click', (e) => {
+                const driverId = e.target.dataset.id;
+                showConfirmModal('Xóa Lái Xe', `Bạn có chắc chắn muốn xóa lái xe "${driverId}" không?`, () => {
+                    const currentDrivers = db.get('drivers');
+                    const updatedDrivers = currentDrivers.filter(d => d.id !== driverId);
+                    db.set('drivers', updatedDrivers);
+                    loadDrivers();
+                });
+            }));
+        }
+
+        function loadCustomers() {
+            const customers = db.get('customers');
+            const customerSelect = document.getElementById('customer-select');
+            const customerListDiv = document.getElementById('customer-list');
+            customerSelect.innerHTML = ''; customerListDiv.innerHTML = '';
+
+            if (customers.length === 0) {
+                customerSelect.innerHTML = '<option value="">-- Vui lòng thêm khách hàng --</option>';
+                customerListDiv.innerHTML = '<p class="text-gray-500">Chưa có khách hàng nào.</p>';
+            } else {
+                customers.forEach(customer => {
+                    customerSelect.innerHTML += `<option value="${customer.id}">${customer.name}</option>`;
+                    customerListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${customer.name}</span><button data-id="${customer.id}" class="delete-customer-btn text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
+                });
+            }
+            
+            document.querySelectorAll('.delete-customer-btn').forEach(button => button.addEventListener('click', (e) => {
+                const customerId = e.target.dataset.id;
+                showConfirmModal('Xóa Khách Hàng', `Bạn có chắc chắn muốn xóa khách hàng "${customerId}" không?`, () => {
+                    const currentCustomers = db.get('customers');
+                    const updatedCustomers = currentCustomers.filter(c => c.id !== customerId);
+                    db.set('customers', updatedCustomers);
+                    loadCustomers();
+                });
+            }));
+        }
+
+        function handleAddTrip(e) {
+            e.preventDefault();
+            const carSelect = document.getElementById('car-select');
+            const driverSelect = document.getElementById('driver-select');
+            const customerSelect = document.getElementById('customer-select');
+            
+            if (!carSelect.value) { alert("Vui lòng chọn xe."); return; }
+            if (!driverSelect.value) { alert("Vui lòng chọn lái xe."); return; }
+            if (!customerSelect.value) { alert("Vui lòng chọn khách hàng."); return; }
+
+            const startKm = parseFloat(document.getElementById('start-km').value);
+            const endKm = parseFloat(document.getElementById('end-km').value);
+            if (endKm < startKm) { alert("Số KM kết thúc không thể nhỏ hơn số KM bắt đầu."); return; }
+
+            const tripFare = parseFloat(document.getElementById('trip-fare').value);
+            const tripData = {
+                id: Date.now().toString(),
+                carId: carSelect.value, carName: carSelect.options[carSelect.selectedIndex].text,
+                driverId: driverSelect.value, driverName: driverSelect.options[driverSelect.selectedIndex].text,
+                customerId: customerSelect.value, customerName: customerSelect.options[customerSelect.selectedIndex].text,
+                startKm: startKm, endKm: endKm,
+                pickupLocation: document.getElementById('pickup-location').value,
+                dropoffLocation: document.getElementById('dropoff-location').value,
+                fuelCost: parseFloat(document.getElementById('fuel-cost').value),
+                tripFare: tripFare,
+                driverSalary: tripFare * 0.20,
+                isPaid: document.getElementById('is-paid').checked,
+                createdAt: new Date().toISOString()
+            };
+
+            const trips = db.get('trips');
+            trips.push(tripData);
+            db.set('trips', trips);
+
+            document.getElementById('trip-form').reset();
+            alert('Đã lưu chuyến đi thành công!');
+            loadAndRenderTrips();
+            document.querySelector('.nav-btn[data-page="trips-list-page"]').click();
+        }
+
+        function loadAndRenderTrips() {
+            const trips = db.get('trips');
+            trips.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            const tripsList = document.getElementById('trips-list');
+            tripsList.innerHTML = '';
+            
+            if (trips.length === 0) {
+                tripsList.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-gray-500">Chưa có dữ liệu chuyến đi.</td></tr>`;
+                return;
+            }
+
+            trips.forEach(trip => {
+                const tripDate = new Date(trip.createdAt);
+                const formattedDate = `${tripDate.getDate()}/${tripDate.getMonth() + 1}/${tripDate.getFullYear()}`;
+                const statusHtml = trip.isPaid 
+                    ? `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Đã trả</span>`
+                    : `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Còn nợ</span>`;
+
+                tripsList.innerHTML += `<tr>
+                    <td class="px-6 py-4 whitespace-nowrap">${formattedDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${trip.carName}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${trip.driverName}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${trip.customerName}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${statusHtml}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button data-id="${trip.id}" class="view-btn text-indigo-600 hover:text-indigo-900 mr-3">Xem</button>
+                        <button data-id="${trip.id}" class="delete-btn text-red-600 hover:text-red-900">Xóa</button>
+                    </td>
+                </tr>`;
+            });
+
+            document.querySelectorAll('.view-btn').forEach(b => b.addEventListener('click', (e) => showTripDetails(e.target.dataset.id)));
+            document.querySelectorAll('.delete-btn').forEach(b => b.addEventListener('click', (e) => deleteTrip(e.target.dataset.id)));
+        }
+
+        function showTripDetails(tripId) {
+            const trips = db.get('trips');
+            const trip = trips.find(t => t.id === tripId);
+            if (trip) {
+                const tripDate = new Date(trip.createdAt);
+                const formattedDateTime = `${tripDate.getHours()}:${String(tripDate.getMinutes()).padStart(2, '0')} - ${tripDate.getDate()}/${tripDate.getMonth() + 1}/${tripDate.getFullYear()}`;
+                const statusText = trip.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán';
+                document.getElementById('modal-content').innerHTML = `<p><strong>Ngày tạo:</strong> ${formattedDateTime}</p><p><strong>Xe:</strong> ${trip.carName}</p><p><strong>Tài xế:</strong> ${trip.driverName}</p><p><strong>Khách hàng:</strong> ${trip.customerName} (${statusText})</p><p><strong>Lộ trình:</strong> ${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p><p><strong>Số KM:</strong> ${trip.startKm} km ➔ ${trip.endKm} km (Tổng: ${trip.endKm - trip.startKm} km)</p><hr><p class="text-green-600"><strong>Doanh thu:</strong> ${currencyFormatter.format(trip.tripFare)}</p><p class="text-red-600"><strong>Chi phí xăng:</strong> ${currencyFormatter.format(trip.fuelCost)}</p><p class="text-yellow-600"><strong>Lương tài xế (20%):</strong> ${currencyFormatter.format(trip.driverSalary)}</p>`;
+                document.getElementById('trip-detail-modal').classList.remove('hidden');
+            }
+        }
+
+        function deleteTrip(tripId) {
+            showConfirmModal('Xóa Chuyến Đi', 'Bạn có chắc chắn muốn xóa chuyến đi này không?', () => {
+                const trips = db.get('trips');
+                const updatedTrips = trips.filter(t => t.id !== tripId);
+                db.set('trips', updatedTrips);
+                loadAndRenderTrips();
+            });
+        }
+        
+        function populateReportFilters() {
+            const cars = db.get('cars');
+            const drivers = db.get('drivers');
+            const carSelect = document.getElementById('report-car-select');
+            const driverSelect = document.getElementById('report-driver-select');
+            
+            carSelect.innerHTML = '<option value="all">-- Chọn xe --</option>';
+            cars.forEach(car => carSelect.innerHTML += `<option value="${car.id}">${car.name}</option>`);
+
+            driverSelect.innerHTML = '<option value="all">-- Chọn tài xế --</option>';
+            drivers.forEach(driver => driverSelect.innerHTML += `<option value="${driver.id}">${driver.name}</option>`);
+        }
+
+        function getMonthlyData(year, month) {
+            const trips = db.get('trips');
+            const monthlyTrips = trips.filter(trip => {
+                const tripDate = new Date(trip.createdAt);
+                return tripDate.getFullYear() === year && tripDate.getMonth() + 1 === month;
+            });
+            return monthlyTrips;
+        }
+
+        function generateMonthlyReport() {
+            const monthInput = document.getElementById('report-month').value;
+            if (!monthInput) { return; }
+
+            const [year, month] = monthInput.split('-').map(Number);
+            const monthlyTrips = getMonthlyData(year, month);
+            
+            let totalRevenue = 0, totalFuelCost = 0;
+            const driverReportData = {};
+            const carReportData = {};
+
+            monthlyTrips.forEach(trip => {
+                totalRevenue += trip.tripFare;
+                totalFuelCost += trip.fuelCost;
+
+                if (!carReportData[trip.carName]) {
+                    carReportData[trip.carName] = { revenue: 0, fuel: 0 };
+                }
+                carReportData[trip.carName].revenue += trip.tripFare;
+                carReportData[trip.carName].fuel += trip.fuelCost;
+
+                if (trip.driverName) {
+                    if (!driverReportData[trip.driverName]) {
+                        driverReportData[trip.driverName] = { tripCount: 0, baseSalary: 0, workDays: new Set() };
+                    }
+                    const driverData = driverReportData[trip.driverName];
+                    driverData.tripCount++;
+                    driverData.baseSalary += trip.driverSalary;
+                    driverData.workDays.add(trip.createdAt.split('T')[0]); 
+                }
+            });
+
+            let totalSalaries = 0;
+            for (const driverName in driverReportData) {
+                const driverData = driverReportData[driverName];
+                const dailyAllowance = driverData.workDays.size * 50000;
+                driverData.totalSalary = driverData.baseSalary + dailyAllowance;
+                totalSalaries += driverData.totalSalary;
+            }
+
+            const totalExpenses = totalFuelCost + totalSalaries;
+            const netProfit = totalRevenue - totalExpenses;
+            
+            document.getElementById('report-month-display').textContent = `${month}/${year}`;
+            document.getElementById('total-revenue').textContent = currencyFormatter.format(totalRevenue);
+            document.getElementById('total-fuel').textContent = currencyFormatter.format(totalFuelCost);
+            document.getElementById('total-salaries').textContent = currencyFormatter.format(totalSalaries);
+            document.getElementById('total-expenses').textContent = currencyFormatter.format(totalExpenses);
+            document.getElementById('net-profit').textContent = currencyFormatter.format(netProfit);
+            
+            const carSummaryDiv = document.getElementById('car-summary-report');
+            if (Object.keys(carReportData).length > 0) {
+                let carReportHtml = `<h4>Thống Kê Tổng Quan Theo Xe</h4><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Xe</th><th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Doanh Thu</th><th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Chi Phí Xăng</th></tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
+                for (const [car, data] of Object.entries(carReportData)) {
+                    carReportHtml += `<tr><td class="px-4 py-2 whitespace-nowrap">${car}</td><td class="px-4 py-2 whitespace-nowrap font-medium text-green-700">${currencyFormatter.format(data.revenue)}</td><td class="px-4 py-2 whitespace-nowrap font-medium text-red-700">${currencyFormatter.format(data.fuel)}</td></tr>`;
+                }
+                carReportHtml += '</tbody></table></div>';
+                carSummaryDiv.innerHTML = carReportHtml;
+            } else {
+                carSummaryDiv.innerHTML = '<h4>Thống Kê Tổng Quan Theo Xe</h4><p class="text-gray-500">Không có dữ liệu.</p>';
+            }
+
+            const driverSummaryDiv = document.getElementById('driver-summary-report');
+            if (Object.keys(driverReportData).length > 0) {
+                let reportHtml = `<h4>Thống Kê Lương Tài Xế</h4><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tài xế</th><th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Số chuyến</th><th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tổng lương</th></tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
+                for (const [driver, data] of Object.entries(driverReportData)) {
+                    reportHtml += `<tr><td class="px-4 py-2 whitespace-nowrap">${driver}</td><td class="px-4 py-2 whitespace-nowrap">${data.tripCount}</td><td class="px-4 py-2 whitespace-nowrap font-medium text-yellow-800">${currencyFormatter.format(data.totalSalary)}</td></tr>`;
+                }
+                reportHtml += '</tbody></table></div>';
+                driverSummaryDiv.innerHTML = reportHtml;
+            } else {
+                driverSummaryDiv.innerHTML = '<h4>Thống Kê Lương Tài Xế</h4><p class="text-gray-500">Không có dữ liệu.</p>';
+            }
+            
+            document.getElementById('report-results').classList.remove('hidden');
+            document.getElementById('report-car-select').value = 'all';
+            document.getElementById('report-driver-select').value = 'all';
+            document.getElementById('car-detail-report').innerHTML = '';
+            document.getElementById('driver-detail-report').innerHTML = '';
+        }
+        
+        function generateDetailedCarReport() {
+            const carId = document.getElementById('report-car-select').value;
+            const carDetailDiv = document.getElementById('car-detail-report');
+            document.getElementById('report-driver-select').value = 'all';
+            document.getElementById('driver-detail-report').innerHTML = '';
+
+            if (carId === 'all') {
+                carDetailDiv.innerHTML = '';
+                return;
+            }
+            const monthInput = document.getElementById('report-month').value;
+            const [year, month] = monthInput.split('-').map(Number);
+            const monthlyTrips = getMonthlyData(year, month);
+            const carTrips = monthlyTrips.filter(trip => trip.carId === carId);
+
+            if (carTrips.length === 0) {
+                carDetailDiv.innerHTML = `<h4>Chi tiết các chuyến của xe ${carId}</h4><p class="text-gray-500">Xe này không có chuyến nào trong tháng.</p>`;
+                return;
+            }
+            
+            const totalFuelForCar = carTrips.reduce((sum, trip) => sum + trip.fuelCost, 0);
+
+            let html = `<div class="flex justify-between items-center"><h4>Chi tiết các chuyến của xe ${carId}</h4><button onclick="printReport('car-detail-report', 'Báo Cáo Chi Tiết Xe ${carId}')" class="print-button">In Báo Cáo</button></div>
+                        <div class="my-2 p-3 bg-gray-50 rounded-lg">
+                           <p><strong>Tổng tiền xăng tháng này:</strong> <span class="font-bold text-red-700">${currencyFormatter.format(totalFuelForCar)}</span></p>
+                        </div>
+                        <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Ngày</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lộ Trình</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Số KM</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tiền Xăng</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Doanh Thu</th>
+                        </tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
+            carTrips.forEach(trip => {
+                const tripDate = new Date(trip.createdAt);
+                html += `<tr>
+                            <td class="px-4 py-2 whitespace-nowrap">${tripDate.getDate()}/${tripDate.getMonth() + 1}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${trip.endKm - trip.startKm} km</td>
+                            <td class="px-4 py-2 whitespace-nowrap text-red-600">${currencyFormatter.format(trip.fuelCost)}</td>
+                            <td class="px-4 py-2 whitespace-nowrap text-green-600">${currencyFormatter.format(trip.tripFare)}</td>
+                         </tr>`;
+            });
+            html += '</tbody></table></div>';
+            carDetailDiv.innerHTML = html;
+        }
+
+        function generateDetailedDriverReport() {
+            const driverId = document.getElementById('report-driver-select').value;
+            const driverDetailDiv = document.getElementById('driver-detail-report');
+            document.getElementById('report-car-select').value = 'all';
+            document.getElementById('car-detail-report').innerHTML = '';
+
+            if (driverId === 'all') {
+                driverDetailDiv.innerHTML = '';
+                return;
+            }
+            const monthInput = document.getElementById('report-month').value;
+            const [year, month] = monthInput.split('-').map(Number);
+            const monthlyTrips = getMonthlyData(year, month);
+            const driverTrips = monthlyTrips.filter(trip => trip.driverId === driverId);
+
+            if (driverTrips.length === 0) {
+                driverDetailDiv.innerHTML = `<h4>Chi tiết lương của tài xế ${driverId}</h4><p class="text-gray-500">Tài xế này không có chuyến nào trong tháng.</p>`;
+                return;
+            }
+            
+            const workDays = new Set(driverTrips.map(t => t.createdAt.split('T')[0]));
+            const workDayCount = workDays.size;
+            const baseSalary = driverTrips.reduce((sum, trip) => sum + trip.driverSalary, 0);
+            const totalSalary = baseSalary + (workDayCount * 50000);
+
+            let html = `<div class="flex justify-between items-center"><h4>Chi tiết lương của tài xế ${driverId}</h4><button onclick="printReport('driver-detail-report', 'Báo Cáo Lương Chi Tiết ${driverId}')" class="print-button">In Báo Cáo</button></div>
+                        <div class="my-2 p-3 bg-gray-50 rounded-lg">
+                            <p><strong>Số ngày công:</strong> ${workDayCount} ngày</p>
+                            <p><strong>Tổng lương tháng:</strong> <span class="font-bold text-yellow-800">${currencyFormatter.format(totalSalary)}</span></p>
+                        </div>
+                        <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Ngày</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lộ Trình</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Số KM</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lương (20%)</th>
+                        </tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
+            driverTrips.forEach(trip => {
+                const tripDate = new Date(trip.createdAt);
+                html += `<tr>
+                            <td class="px-4 py-2 whitespace-nowrap">${tripDate.getDate()}/${tripDate.getMonth() + 1}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${trip.endKm - trip.startKm} km</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${currencyFormatter.format(trip.driverSalary)}</td>
+                         </tr>`;
+            });
+            html += '</tbody></table></div>';
+            driverDetailDiv.innerHTML = html;
+        }
+
+        function populateDebtCustomerFilter() {
+            const customers = db.get('customers');
+            const debtCustomerSelect = document.getElementById('debt-customer-select');
+            debtCustomerSelect.innerHTML = '<option value="all">Tất cả khách hàng</option>';
+            customers.forEach(customer => {
+                debtCustomerSelect.innerHTML += `<option value="${customer.id}">${customer.name}</option>`;
+            });
+        }
+
+        function loadAndRenderCustomerDebts() {
+            const selectedCustomerId = document.getElementById('debt-customer-select').value;
+            const allTrips = db.get('trips');
+            let unpaidTrips = allTrips.filter(trip => !trip.isPaid);
+
+            if (selectedCustomerId !== 'all') {
+                unpaidTrips = unpaidTrips.filter(trip => trip.customerId === selectedCustomerId);
+            }
+
+            const debtListDiv = document.getElementById('debt-list');
+            debtListDiv.innerHTML = '';
+
+            if (unpaidTrips.length === 0) {
+                debtListDiv.innerHTML = '<p class="text-gray-500 text-center">Không có công nợ nào.</p>';
+                return;
+            }
+
+            const debtsByCustomer = {};
+            unpaidTrips.forEach(trip => {
+                if (!debtsByCustomer[trip.customerName]) {
+                    debtsByCustomer[trip.customerName] = [];
+                }
+                debtsByCustomer[trip.customerName].push(trip);
+            });
+
+            for (const customerName in debtsByCustomer) {
+                const customerTrips = debtsByCustomer[customerName];
+                const totalDebt = customerTrips.reduce((sum, trip) => sum + trip.tripFare, 0);
+
+                let customerHtml = `<div id="debt-report-${customerName.replace(/[^a-zA-Z0-9]/g, '')}" class="bg-gray-50 p-4 rounded-lg">
+                                        <div class="flex justify-between items-center">
+                                            <div>
+                                                <h3 class="text-lg font-semibold text-gray-800">${customerName}</h3>
+                                                <p class="font-bold text-red-600">Tổng nợ: ${currencyFormatter.format(totalDebt)}</p>
+                                            </div>
+                                            <button onclick="printReport('debt-report-${customerName.replace(/[^a-zA-Z0-9]/g, '')}', 'Báo Cáo Công Nợ Khách Hàng: ${customerName}')" class="print-button">In Công Nợ</button>
+                                        </div>
+                                        <div class="mt-4 space-y-2">`;
+                
+                customerTrips.forEach(trip => {
+                    const tripDate = new Date(trip.createdAt);
+                    customerHtml += `<div class="flex justify-between items-center p-2 bg-white rounded-md border">
+                                        <div>
+                                            <p class="font-medium">${tripDate.getDate()}/${tripDate.getMonth() + 1}/${tripDate.getFullYear()} - Xe: ${trip.carName}</p>
+                                            <p class="text-sm text-gray-600">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="font-semibold text-red-500">${currencyFormatter.format(trip.tripFare)}</p>
+                                            <button data-id="${trip.id}" class="mark-as-paid-btn text-xs bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600">Trả nợ</button>
+                                        </div>
+                                     </div>`;
+                });
+
+                customerHtml += `</div></div>`;
+                debtListDiv.innerHTML += customerHtml;
+            }
+
+            document.querySelectorAll('.mark-as-paid-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const tripId = e.target.dataset.id;
+                    const allTrips = db.get('trips');
+                    const tripIndex = allTrips.findIndex(t => t.id === tripId);
+                    if (tripIndex !== -1) {
+                        allTrips[tripIndex].isPaid = true;
+                        db.set('trips', allTrips);
+                        loadAndRenderCustomerDebts(); 
+                        loadAndRenderTrips(); 
+                    }
+                });
+            });
+        }
+
+        function printReport(elementId, reportTitle) {
+            const printContentEl = document.getElementById(elementId);
+            if (!printContentEl) return;
+            
+            // Clone the element to avoid modifying the original
+            const clonedEl = printContentEl.cloneNode(true);
+            
+            // Remove any print buttons from the cloned element
+            clonedEl.querySelectorAll('.print-button').forEach(btn => btn.remove());
+            const printContent = clonedEl.innerHTML;
+
+            const logoSrc = document.getElementById('company-logo').src; 
+
+            const printWindow = window.open('', '', 'height=800,width=800');
+            printWindow.document.write('<html><head><title>' + reportTitle + '</title>');
+            printWindow.document.write('<style>');
+            printWindow.document.write(`
+                body { font-family: "Inter", sans-serif; margin: 20px; color: #000; }
+                .print-header { text-align: center; margin-bottom: 40px; }
+                .print-header img { max-height: 80px; margin-bottom: 10px; }
+                .print-header h1 { font-size: 1.5rem; margin: 0; font-weight: bold; }
+                .print-header h2 { font-size: 1.25rem; margin: 5px 0 0 0; font-weight: normal; }
+                .print-footer { text-align: right; margin-top: 60px; padding-right: 50px; }
+                .print-footer p { margin: 0; }
+                .print-footer .signature { margin-top: 80px; font-weight: bold; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 0.9rem; }
+                th { background-color: #f2f2f2; }
+                h4 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+                .bg-gray-50 { background-color: #f9fafb; }
+                .p-3 { padding: 0.75rem; }
+                .rounded-lg { border-radius: 0.5rem; }
+                .my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+                .font-bold { font-weight: 700; }
+                .text-red-700 { color: #b91c1c; }
+                .text-yellow-800 { color: #854d0e; }
+            `);
+            printWindow.document.write('</style></head><body>');
+
+            // Header
+            printWindow.document.write('<div class="print-header">');
+            printWindow.document.write('<img src="' + logoSrc + '" alt="Logo">');
+            printWindow.document.write('<h1>Công Ty Tnhh Dịch Vụ Vận Tải Du Lịch Hoàng Quý</h1>');
+            printWindow.document.write('<h2>' + reportTitle + '</h2>');
+            printWindow.document.write('</div>');
+
+            // Main Content
+            printWindow.document.write('<div class="print-main-content">');
+            printWindow.document.write(printContent);
+            printWindow.document.write('</div>');
+
+            // Footer
+            printWindow.document.write('<div class="print-footer">');
+            const today = new Date();
+            printWindow.document.write(`<p>Ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}</p>`);
+            printWindow.document.write('<p><strong>Giám đốc</strong></p>');
+            printWindow.document.write('<p class="signature">Đào Đức Hoàng</p>');
+            printWindow.document.write('</div>');
+
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(function(){
+                printWindow.print();
+                printWindow.close();
+            }, 250);
+        }
+
+        main();
+
+    </script>
+</body>
+</html>
