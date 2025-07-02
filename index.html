@@ -27,16 +27,16 @@
             padding-top: 1rem; /* pt-4 */
             border-top: 1px solid #e5e7eb; /* border-t */
         }
-        .print-button {
-            background-color: #4b5563; /* gray-600 */
+        .export-button {
+            background-color: #16a34a; /* green-600 */
             color: white;
             font-weight: bold;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             font-size: 0.875rem;
         }
-        .print-button:hover {
-            background-color: #374151; /* gray-700 */
+        .export-button:hover {
+            background-color: #15803d; /* green-700 */
         }
     </style>
 </head>
@@ -44,12 +44,11 @@
 
     <div class="container mx-auto p-4 md:p-6">
         <header class="text-center mb-6 flex flex-col items-center">
-            <img id="company-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAJYBAADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1VZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+qaKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigA-`" alt="Logo Công Ty" class="h-24 w-auto mb-4">
+            <img id="company-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAJYBAADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1VZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+qaKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigA-`" alt="Logo Công Ty" class="h-24 w-auto mb-4">
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Trình Quản Lý Đội Xe Du Lịch</h1>
             <p class="text-gray-600 mt-2">Dễ dàng theo dõi và quản lý mọi chuyến đi.</p>
         </header>
 
-        <!-- Thanh Menu Điều Hướng -->
         <nav class="bg-white rounded-xl shadow-md p-2 flex flex-wrap justify-center gap-2 mb-6">
             <button data-page="add-trip-page" class="nav-btn active flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Thêm Chuyến Đi</button>
             <button data-page="trips-list-page" class="nav-btn flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Danh Sách Chuyến Đi</button>
@@ -59,7 +58,6 @@
         </nav>
 
         <main>
-            <!-- Trang 1: Thêm Chuyến Đi -->
             <div id="add-trip-page" class="page-view">
                 <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-6 border-b pb-3">Thêm Chuyến Đi Mới</h2>
@@ -68,9 +66,9 @@
                             <div><label for="trip-start-date" class="block text-sm font-medium text-gray-700">Ngày Bắt Đầu</label><input type="date" id="trip-start-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
                             <div><label for="trip-end-date" class="block text-sm font-medium text-gray-700">Ngày Kết Thúc</label><input type="date" id="trip-end-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
                         </div>
-                        <div><label for="car-select" class="block text-sm font-medium text-gray-700">Chọn Xe</label><select id="car-select" name="car-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
-                        <div><label for="driver-select" class="block text-sm font-medium text-gray-700">Chọn Lái Xe</label><select id="driver-select" name="driver-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
-                        <div><label for="customer-select" class="block text-sm font-medium text-gray-700">Chọn Khách Hàng</label><select id="customer-select" name="customer-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
+                        <div><label for="car-select" class="block text-sm font-medium text-gray-700">Chọn Xe</label><select id="car-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm"></select></div>
+                        <div><label for="driver-select" class="block text-sm font-medium text-gray-700">Chọn Lái Xe</label><select id="driver-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm"></select></div>
+                        <div><label for="customer-select" class="block text-sm font-medium text-gray-700">Chọn Khách Hàng</label><select id="customer-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm"></select></div>
                         <div><label for="start-km" class="block text-sm font-medium text-gray-700">Số KM Bắt Đầu</label><input type="number" id="start-km" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
                         <div><label for="end-km" class="block text-sm font-medium text-gray-700">Số KM Kết Thúc</label><input type="number" id="end-km" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
                         <div><label for="pickup-location" class="block text-sm font-medium text-gray-700">Điểm Đón Khách</label><input type="text" id="pickup-location" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
@@ -78,12 +76,11 @@
                         <div><label for="fuel-cost" class="block text-sm font-medium text-gray-700">Tiền Đổ Xăng (VND)</label><input type="number" id="fuel-cost" value="0" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
                         <div><label for="trip-fare" class="block text-sm font-medium text-gray-700">Doanh Thu Chuyến Đi (VND)</label><input type="number" id="trip-fare" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
                         <div class="flex items-center"><input id="is-paid" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"><label for="is-paid" class="ml-2 block text-sm text-gray-900">Đã thanh toán</label></div>
-                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300">Lưu Chuyến Đi</button>
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg">Lưu Chuyến Đi</button>
                     </form>
                 </div>
             </div>
 
-            <!-- Trang 2: Danh Sách Chuyến Đi -->
             <div id="trips-list-page" class="page-view hidden">
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Các Chuyến Đi Gần Đây</h2>
@@ -93,7 +90,6 @@
                 </div>
             </div>
 
-            <!-- Trang 3: Báo Cáo Tháng -->
             <div id="report-page" class="page-view hidden">
                  <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Thống Kê Theo Tháng</h2>
@@ -105,7 +101,7 @@
                         <div id="summary-report-wrapper">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-xl font-semibold">Báo cáo tổng quan cho tháng <span id="report-month-display"></span>:</h3>
-                                <button onclick="printReport('summary-report-content', 'Báo Cáo Tổng Quan')" class="print-button">In Báo Cáo</button>
+                                <button data-action="export-report" data-element-id="summary-report-content" data-report-title="Báo Cáo Tổng Quan" class="export-button">Xuất Excel</button>
                             </div>
                             <div id="summary-report-content">
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -132,7 +128,6 @@
                 </div>
             </div>
 
-            <!-- Trang 4: Công Nợ Khách Hàng -->
             <div id="customer-debt-page" class="page-view hidden">
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Công Nợ Khách Hàng</h2>
@@ -144,7 +139,6 @@
                 </div>
             </div>
 
-            <!-- Trang 5: Quản Lý -->
             <div id="management-page" class="page-view hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white p-6 rounded-xl shadow-lg">
@@ -167,7 +161,6 @@
         </main>
     </div>
 
-    <!-- Modals -->
     <div id="trip-detail-modal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"><div class="relative top-20 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white"><div class="flex justify-between items-center border-b pb-3"><h3 class="text-2xl font-bold text-gray-900">Chi Tiết Chuyến Đi</h3><button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button></div><div id="modal-content" class="mt-4 space-y-4"></div></div></div>
     <div id="confirm-delete-modal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"><div class="relative top-40 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white"><div class="mt-3 text-center"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div><h3 class="text-lg leading-6 font-medium text-gray-900 mt-4" id="confirm-title">Xóa mục này?</h3><div class="mt-2 px-7 py-3"><p class="text-sm text-gray-500" id="confirm-message">Bạn có chắc chắn muốn thực hiện hành động này không? Thao tác này không thể hoàn tác.</p></div><div class="items-center px-4 py-3 space-x-4"><button id="confirm-delete-btn" class="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md w-auto hover:bg-red-700">Xóa</button><button id="cancel-delete-btn" class="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-auto hover:bg-gray-300">Hủy</button></div></div></div></div>
 
@@ -216,6 +209,62 @@
         }
 
         function setupEventListeners() {
+            document.body.addEventListener('click', function(e) {
+                const target = e.target.closest('button');
+                if (!target) return;
+
+                const action = target.dataset.action;
+                const id = target.dataset.id;
+                const elementId = target.dataset.elementId;
+                const reportTitle = target.dataset.reportTitle;
+
+                switch(action) {
+                    case 'export-report':
+                        if (elementId && reportTitle) exportToWord(elementId, reportTitle);
+                        break;
+                    case 'delete-car':
+                        showConfirmModal('Xóa Xe', `Bạn có chắc chắn muốn xóa xe "${id}" không?`, () => {
+                            const currentCars = db.get('cars');
+                            const updatedCars = currentCars.filter(c => c.id !== id);
+                            db.set('cars', updatedCars);
+                            loadCars();
+                        });
+                        break;
+                    case 'delete-driver':
+                        showConfirmModal('Xóa Lái Xe', `Bạn có chắc chắn muốn xóa lái xe "${id}" không?`, () => {
+                            const currentDrivers = db.get('drivers');
+                            const updatedDrivers = currentDrivers.filter(d => d.id !== id);
+                            db.set('drivers', updatedDrivers);
+                            loadDrivers();
+                        });
+                        break;
+                    case 'delete-customer':
+                        showConfirmModal('Xóa Khách Hàng', `Bạn có chắc chắn muốn xóa khách hàng "${id}" không?`, () => {
+                            const currentCustomers = db.get('customers');
+                            const updatedCustomers = currentCustomers.filter(c => c.id !== id);
+                            db.set('customers', updatedCustomers);
+                            loadCustomers();
+                        });
+                        break;
+                    case 'view-trip':
+                        showTripDetails(id);
+                        break;
+                    case 'delete-trip':
+                        deleteTrip(id);
+                        break;
+                    case 'mark-paid':
+                        const allTrips = db.get('trips');
+                        const tripIndex = allTrips.findIndex(t => t.id === id);
+                        if (tripIndex !== -1) {
+                            allTrips[tripIndex].isPaid = true;
+                            db.set('trips', allTrips);
+                            loadAndRenderCustomerDebts(); 
+                            loadAndRenderTrips(); 
+                        }
+                        break;
+                }
+            });
+
             document.getElementById('trip-form').addEventListener('submit', handleAddTrip);
             document.getElementById('generate-report-btn').addEventListener('click', generateMonthlyReport);
             document.getElementById('add-car-form').addEventListener('submit', handleAddCar);
@@ -313,73 +362,49 @@
             } else {
                 cars.forEach(car => {
                     carSelect.innerHTML += `<option value="${car.id}">${car.name}</option>`;
-                    carListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${car.name}</span><button data-id="${car.id}" class="delete-car-btn text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
+                    carListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${car.name}</span><button data-id="${car.id}" data-action="delete-car" class="text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
                 });
             }
-            
-            document.querySelectorAll('.delete-car-btn').forEach(button => button.addEventListener('click', (e) => {
-                const carId = e.target.dataset.id;
-                showConfirmModal('Xóa Xe', `Bạn có chắc chắn muốn xóa xe "${carId}" không?`, () => {
-                    const currentCars = db.get('cars');
-                    const updatedCars = currentCars.filter(c => c.id !== carId);
-                    db.set('cars', updatedCars);
-                    loadCars();
-                });
-            }));
         }
 
         function loadDrivers() {
             const drivers = db.get('drivers');
             const driverSelect = document.getElementById('driver-select');
             const driverListDiv = document.getElementById('driver-list');
-            driverSelect.innerHTML = ''; driverListDiv.innerHTML = '';
+            driverSelect.innerHTML = ''; 
+            driverListDiv.innerHTML = '';
 
             if (drivers.length === 0) {
-                driverSelect.innerHTML = '<option value="">-- Vui lòng thêm lái xe --</option>';
+                const noDriverOption = '<option value="">-- Vui lòng thêm lái xe --</option>';
+                driverSelect.innerHTML = noDriverOption;
                 driverListDiv.innerHTML = '<p class="text-gray-500">Chưa có lái xe nào.</p>';
             } else {
                 drivers.forEach(driver => {
-                    driverSelect.innerHTML += `<option value="${driver.id}">${driver.name}</option>`;
-                    driverListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${driver.name}</span><button data-id="${driver.id}" class="delete-driver-btn text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
+                    const optionHtml = `<option value="${driver.id}">${driver.name}</option>`;
+                    driverSelect.innerHTML += optionHtml;
+                    driverListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${driver.name}</span><button data-id="${driver.id}" data-action="delete-driver" class="text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
                 });
             }
-            
-            document.querySelectorAll('.delete-driver-btn').forEach(button => button.addEventListener('click', (e) => {
-                const driverId = e.target.dataset.id;
-                showConfirmModal('Xóa Lái Xe', `Bạn có chắc chắn muốn xóa lái xe "${driverId}" không?`, () => {
-                    const currentDrivers = db.get('drivers');
-                    const updatedDrivers = currentDrivers.filter(d => d.id !== driverId);
-                    db.set('drivers', updatedDrivers);
-                    loadDrivers();
-                });
-            }));
         }
 
         function loadCustomers() {
             const customers = db.get('customers');
             const customerSelect = document.getElementById('customer-select');
             const customerListDiv = document.getElementById('customer-list');
-            customerSelect.innerHTML = ''; customerListDiv.innerHTML = '';
+            customerSelect.innerHTML = ''; 
+            customerListDiv.innerHTML = '';
 
             if (customers.length === 0) {
-                customerSelect.innerHTML = '<option value="">-- Vui lòng thêm khách hàng --</option>';
+                const noCustomerOption = '<option value="">-- Vui lòng thêm khách hàng --</option>';
+                customerSelect.innerHTML = noCustomerOption;
                 customerListDiv.innerHTML = '<p class="text-gray-500">Chưa có khách hàng nào.</p>';
             } else {
                 customers.forEach(customer => {
-                    customerSelect.innerHTML += `<option value="${customer.id}">${customer.name}</option>`;
-                    customerListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${customer.name}</span><button data-id="${customer.id}" class="delete-customer-btn text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
+                    const optionHtml = `<option value="${customer.id}">${customer.name}</option>`;
+                    customerSelect.innerHTML += optionHtml;
+                    customerListDiv.innerHTML += `<div class="flex justify-between items-center p-2 bg-gray-100 rounded-md"><span>${customer.name}</span><button data-id="${customer.id}" data-action="delete-customer" class="text-red-500 hover:text-red-700 font-bold">Xóa</button></div>`;
                 });
             }
-            
-            document.querySelectorAll('.delete-customer-btn').forEach(button => button.addEventListener('click', (e) => {
-                const customerId = e.target.dataset.id;
-                showConfirmModal('Xóa Khách Hàng', `Bạn có chắc chắn muốn xóa khách hàng "${customerId}" không?`, () => {
-                    const currentCustomers = db.get('customers');
-                    const updatedCustomers = currentCustomers.filter(c => c.id !== customerId);
-                    db.set('customers', updatedCustomers);
-                    loadCustomers();
-                });
-            }));
         }
 
         function handleAddTrip(e) {
@@ -460,14 +485,11 @@
                     <td class="px-6 py-4 whitespace-nowrap">${trip.customerName}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${statusHtml}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button data-id="${trip.id}" class="view-btn text-indigo-600 hover:text-indigo-900 mr-3">Xem</button>
-                        <button data-id="${trip.id}" class="delete-btn text-red-600 hover:text-red-900">Xóa</button>
+                        <button data-id="${trip.id}" data-action="view-trip" class="text-indigo-600 hover:text-indigo-900 mr-3">Xem</button>
+                        <button data-id="${trip.id}" data-action="delete-trip" class="text-red-600 hover:text-red-900">Xóa</button>
                     </td>
                 </tr>`;
             });
-
-            document.querySelectorAll('.view-btn').forEach(b => b.addEventListener('click', (e) => showTripDetails(e.target.dataset.id)));
-            document.querySelectorAll('.delete-btn').forEach(b => b.addEventListener('click', (e) => deleteTrip(e.target.dataset.id)));
         }
 
         function showTripDetails(tripId) {
@@ -479,7 +501,6 @@
                 const formattedStartDate = `${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`;
                 const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`;
                 const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} đến ${formattedEndDate}`;
-
                 const statusText = trip.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán';
                 document.getElementById('modal-content').innerHTML = `<p><strong>Thời gian:</strong> ${dateDisplay}</p><p><strong>Xe:</strong> ${trip.carName}</p><p><strong>Tài xế:</strong> ${trip.driverName}</p><p><strong>Khách hàng:</strong> ${trip.customerName} (${statusText})</p><p><strong>Lộ trình:</strong> ${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p><p><strong>Số KM:</strong> ${trip.startKm} km ➔ ${trip.endKm} km (Tổng: ${trip.endKm - trip.startKm} km)</p><hr><p class="text-green-600"><strong>Doanh thu:</strong> ${currencyFormatter.format(trip.tripFare)}</p><p class="text-red-600"><strong>Chi phí xăng:</strong> ${currencyFormatter.format(trip.fuelCost)}</p>`;
                 document.getElementById('trip-detail-modal').classList.remove('hidden');
@@ -534,14 +555,6 @@
             return false;
         }
 
-        function calculateDriverSalary(trip) {
-            const baseSalary = trip.tripFare * 0.20;
-            const duration = calculateTripDurationInDays(trip.startDate, trip.endDate);
-            const overnightBonus = duration > 1 ? 500000 : 0;
-            const sundayBonus = hasSundayInRange(trip.startDate, trip.endDate) ? 100000 : 0;
-            return baseSalary + overnightBonus + sundayBonus;
-        }
-
         function generateMonthlyReport() {
             const monthInput = document.getElementById('report-month').value;
             if (!monthInput) { return; }
@@ -556,9 +569,7 @@
             monthlyTrips.forEach(trip => {
                 totalRevenue += trip.tripFare;
                 totalFuelCost += trip.fuelCost;
-                const driverSalary = calculateDriverSalary(trip);
-                totalSalaries += driverSalary;
-
+                
                 if (!carReportData[trip.carName]) {
                     carReportData[trip.carName] = { revenue: 0, fuel: 0 };
                 }
@@ -567,13 +578,33 @@
 
                 if (trip.driverName) {
                     if (!driverReportData[trip.driverName]) {
-                        driverReportData[trip.driverName] = { tripCount: 0, totalSalary: 0 };
+                        driverReportData[trip.driverName] = { tripCount: 0, baseSalary: 0, tripBonus: 0, workDays: new Set() };
                     }
                     const driverData = driverReportData[trip.driverName];
                     driverData.tripCount++;
-                    driverData.totalSalary += driverSalary;
+                    
+                    let current = new Date(trip.startDate);
+                    const end = new Date(trip.endDate);
+                    while(current <= end) {
+                        driverData.workDays.add(current.toISOString().split('T')[0]);
+                        current.setDate(current.getDate() + 1);
+                    }
+                    
+                    driverData.baseSalary += trip.tripFare * 0.20;
+                    const duration = calculateTripDurationInDays(trip.startDate, trip.endDate);
+                    const overnightBonus = duration > 1 ? (duration - 1) * 500000 : 0;
+                    const sundayBonus = hasSundayInRange(trip.startDate, trip.endDate) ? 100000 : 0;
+                    driverData.tripBonus += overnightBonus + sundayBonus;
                 }
             });
+
+            for (const driver in driverReportData) {
+                const workDayCount = driverReportData[driver].workDays.size;
+                const dailyAllowance = workDayCount * 50000;
+                const totalDriverSalary = driverReportData[driver].baseSalary + driverReportData[driver].tripBonus + dailyAllowance;
+                driverReportData[driver].totalSalary = totalDriverSalary;
+                totalSalaries += totalDriverSalary;
+            }
 
             const totalExpenses = totalFuelCost + totalSalaries;
             const netProfit = totalRevenue - totalExpenses;
@@ -638,7 +669,7 @@
             
             const totalFuelForCar = carTrips.reduce((sum, trip) => sum + trip.fuelCost, 0);
 
-            let html = `<div class="flex justify-between items-center"><h4>Chi tiết các chuyến của xe ${carId}</h4><button onclick="printReport('car-detail-report', 'Báo Cáo Chi Tiết Xe ${carId}')" class="print-button">In Báo Cáo</button></div>
+            let html = `<div class="flex justify-between items-center"><h4>Chi tiết các chuyến của xe ${carId}</h4><button data-action="export-report" data-element-id="car-detail-report" data-report-title="Báo Cáo Chi Tiết Xe ${carId}" class="export-button">Xuất Excel</button></div>
                         <div class="my-2 p-3 bg-gray-50 rounded-lg">
                            <p><strong>Tổng tiền xăng tháng này:</strong> <span class="font-bold text-red-700">${currencyFormatter.format(totalFuelForCar)}</span></p>
                         </div>
@@ -687,17 +718,39 @@
                 return;
             }
             
-            const totalSalary = driverTrips.reduce((sum, trip) => sum + calculateDriverSalary(trip), 0);
+            const workDays = new Set();
+            driverTrips.forEach(trip => {
+                let current = new Date(trip.startDate);
+                const end = new Date(trip.endDate);
+                while(current <= end) {
+                    workDays.add(current.toISOString().split('T')[0]);
+                    current.setDate(current.getDate() + 1);
+                }
+            });
+            const workDayCount = workDays.size;
+            const totalDailyAllowance = workDayCount * 50000;
+            const totalBaseSalary = driverTrips.reduce((sum, trip) => sum + (trip.tripFare * 0.20), 0);
+            const totalTripBonuses = driverTrips.reduce((sum, trip) => {
+                const duration = calculateTripDurationInDays(trip.startDate, trip.endDate);
+                const overnightBonus = duration > 1 ? (duration - 1) * 500000 : 0;
+                const sundayBonus = hasSundayInRange(trip.startDate, trip.endDate) ? 100000 : 0;
+                return sum + overnightBonus + sundayBonus;
+            }, 0);
+            const totalSalary = totalBaseSalary + totalTripBonuses + totalDailyAllowance;
 
-            let html = `<div class="flex justify-between items-center"><h4>Chi tiết lương của tài xế ${driverId}</h4><button onclick="printReport('driver-detail-report', 'Báo Cáo Lương Chi Tiết ${driverId}')" class="print-button">In Báo Cáo</button></div>
+            let html = `<div class="flex justify-between items-center"><h4>Chi tiết lương của tài xế ${driverId}</h4><button data-action="export-report" data-element-id="driver-detail-report" data-report-title="Báo Cáo Lương Chi Tiết ${driverId}" class="export-button">Xuất Excel</button></div>
                         <div class="my-2 p-3 bg-gray-50 rounded-lg">
-                            <p><strong>Tổng lương tháng:</strong> <span class="font-bold text-yellow-800">${currencyFormatter.format(totalSalary)}</span></p>
+                            <p><strong>Số ngày làm việc:</strong> ${workDayCount} ngày</p>
+                            <p><strong>Tổng lương cơ bản:</strong> ${currencyFormatter.format(totalBaseSalary)}</p>
+                            <p><strong>Tổng phụ cấp ngày công:</strong> ${currencyFormatter.format(totalDailyAllowance)}</p>
+                            <p><strong>Tổng phụ cấp chuyến đi:</strong> ${currencyFormatter.format(totalTripBonuses)}</p>
+                            <p><strong>Tổng lương tháng (Thực lĩnh):</strong> <span class="font-bold text-yellow-800">${currencyFormatter.format(totalSalary)}</span></p>
                         </div>
                         <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Ngày</th>
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lộ Trình</th>
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lương Cơ Bản (20%)</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Phụ Cấp</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Phụ Cấp Chuyến</th>
                         </tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
             driverTrips.forEach(trip => {
                 const startDate = new Date(trip.startDate);
@@ -707,17 +760,22 @@
                 const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} - ${formattedEndDate}`;
                 
                 const duration = calculateTripDurationInDays(trip.startDate, trip.endDate);
-                const overnightBonus = duration > 1 ? 500000 : 0;
+                const overnightBonus = duration > 1 ? (duration - 1) * 500000 : 0;
                 const sundayBonus = hasSundayInRange(trip.startDate, trip.endDate) ? 100000 : 0;
-                let bonusText = [];
-                if(overnightBonus > 0) bonusText.push("Qua đêm");
-                if(sundayBonus > 0) bonusText.push("Chủ nhật");
+                let bonusTextParts = [];
+                if(overnightBonus > 0) bonusTextParts.push(`Qua đêm (${duration - 1} đêm): ${currencyFormatter.format(overnightBonus)}`);
+                if(sundayBonus > 0) bonusTextParts.push(`Chủ nhật: ${currencyFormatter.format(sundayBonus)}`);
+                const totalTripBonus = overnightBonus + sundayBonus;
+
 
                 html += `<tr>
                             <td class="px-4 py-2 whitespace-nowrap">${dateDisplay}</td>
                             <td class="px-4 py-2 whitespace-nowrap">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</td>
                             <td class="px-4 py-2 whitespace-nowrap">${currencyFormatter.format(trip.tripFare * 0.20)}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">${currencyFormatter.format(overnightBonus + sundayBonus)} <span class="text-xs text-gray-500">${bonusText.join(', ')}</span></td>
+                            <td class="px-4 py-2 whitespace-nowrap">
+                                ${currencyFormatter.format(totalTripBonus)} 
+                                <span class="text-xs text-gray-500 block">${bonusTextParts.join('; ')}</span>
+                            </td>
                          </tr>`;
             });
             html += '</tbody></table></div>';
@@ -761,14 +819,16 @@
             for (const customerName in debtsByCustomer) {
                 const customerTrips = debtsByCustomer[customerName];
                 const totalDebt = customerTrips.reduce((sum, trip) => sum + trip.tripFare, 0);
+                const reportId = `debt-report-${customerName.replace(/[^a-zA-Z0-9]/g, '')}`;
+                const reportTitle = `Báo Cáo Công Nợ Khách Hàng: ${customerName}`;
 
-                let customerHtml = `<div id="debt-report-${customerName.replace(/[^a-zA-Z0-9]/g, '')}" class="bg-gray-50 p-4 rounded-lg">
+                let customerHtml = `<div id="${reportId}" class="bg-gray-50 p-4 rounded-lg">
                                         <div class="flex justify-between items-center mb-4">
                                             <div>
                                                 <h3 class="text-lg font-semibold text-gray-800">${customerName}</h3>
                                                 <p class="font-bold text-red-600">Tổng nợ: ${currencyFormatter.format(totalDebt)}</p>
                                             </div>
-                                            <button onclick="printReport('debt-report-${customerName.replace(/[^a-zA-Z0-9]/g, '')}', 'Báo Cáo Công Nợ Khách Hàng: ${customerName}')" class="print-button">In Công Nợ</button>
+                                            <button data-action="export-report" data-element-id="${reportId}" data-report-title="${reportTitle.replace(/"/g, '&quot;')}" class="export-button">Xuất Excel</button>
                                         </div>
                                         <div class="overflow-x-auto">
                                             <table class="min-w-full divide-y divide-gray-200">
@@ -788,100 +848,75 @@
                     const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} - ${formattedEndDate}`;
                     customerHtml += `<tr>
                                         <td class="px-4 py-2 whitespace-nowrap">${dateDisplay}</td>
-                                        <td class="px-4 py-2">
-                                            <p class="font-medium">Xe: ${trip.carName}</p>
-                                            <p class="text-sm text-gray-600">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p>
-                                        </td>
+                                        <td class="px-4 py-2"><p class="font-medium">Xe: ${trip.carName}</p><p class="text-sm text-gray-600">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p></td>
                                         <td class="px-4 py-2 whitespace-nowrap font-semibold text-red-500">${currencyFormatter.format(trip.tripFare)}</td>
-                                        <td class="px-4 py-2 whitespace-nowrap text-right">
-                                            <button data-id="${trip.id}" class="mark-as-paid-btn text-xs bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600">Trả nợ</button>
-                                        </td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-right"><button data-id="${trip.id}" data-action="mark-paid" class="text-xs bg-green-500 text-white py-1 px-2 rounded hover:bg-green-600">Trả nợ</button></td>
                                      </tr>`;
                 });
 
                 customerHtml += `</tbody></table></div></div>`;
                 debtListDiv.innerHTML += customerHtml;
             }
-
-            document.querySelectorAll('.mark-as-paid-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const tripId = e.target.dataset.id;
-                    const allTrips = db.get('trips');
-                    const tripIndex = allTrips.findIndex(t => t.id === tripId);
-                    if (tripIndex !== -1) {
-                        allTrips[tripIndex].isPaid = true;
-                        db.set('trips', allTrips);
-                        loadAndRenderCustomerDebts(); 
-                        loadAndRenderTrips(); 
-                    }
-                });
-            });
         }
 
-        function printReport(elementId, reportTitle) {
+        function exportToWord(elementId, reportTitle) {
             const printContentEl = document.getElementById(elementId);
             if (!printContentEl) return;
             
             const clonedEl = printContentEl.cloneNode(true);
             
-            clonedEl.querySelectorAll('.print-button, .mark-as-paid-btn').forEach(btn => btn.remove());
+            clonedEl.querySelectorAll('.export-button, button[data-action="mark-paid"]').forEach(btn => btn.remove());
             const printContent = clonedEl.innerHTML;
 
             const logoSrc = document.getElementById('company-logo').src; 
 
-            const printWindow = window.open('', '', 'height=800,width=800');
-            printWindow.document.write('<html><head><title>' + reportTitle + '</title>');
-            printWindow.document.write('<style>');
-            printWindow.document.write(`
-                body { font-family: "Inter", sans-serif; margin: 20px; color: #000; }
-                .print-header { text-align: center; margin-bottom: 40px; }
-                .print-header img { max-height: 80px; margin-bottom: 10px; }
-                .print-header h1 { font-size: 1.5rem; margin: 0; font-weight: bold; }
-                .print-header h2 { font-size: 1.25rem; margin: 5px 0 0 0; font-weight: normal; }
-                .print-footer { text-align: right; margin-top: 60px; padding-right: 50px; }
-                .print-footer p { margin: 0; }
-                .print-footer .signature { margin-top: 80px; font-weight: bold; }
-                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; font-size: 0.9rem; }
-                th { background-color: #f2f2f2; }
-                h4, h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; padding-top: 1rem; }
-                .bg-gray-50 { background-color: #f9fafb; }
-                .p-3 { padding: 0.75rem; }
-                .rounded-lg { border-radius: 0.5rem; }
-                .my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
-                .font-bold { font-weight: 700; }
-                .text-red-700 { color: #b91c1c; }
-                .text-yellow-800 { color: #854d0e; }
-            `);
-            printWindow.document.write('</style></head><body>');
+            const htmlContent = `
+                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+                <head><meta charset='utf-8'><title>${reportTitle}</title>
+                <style>
+                    body { font-family: "Times New Roman", serif; }
+                    .print-header { text-align: center; margin-bottom: 40px; }
+                    .print-header img { max-height: 80px; margin-bottom: 10px; }
+                    .print-header h1 { font-size: 18pt; margin: 0; font-weight: bold; }
+                    .print-header h2 { font-size: 14pt; margin: 5px 0 0 0; font-weight: bold; }
+                    .print-footer { text-align: right; margin-top: 60px; padding-right: 50px; }
+                    .print-footer p { margin: 0; }
+                    .print-footer .signature { margin-top: 80px; font-weight: bold; }
+                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                    th, td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 12pt; }
+                    th { background-color: #f2f2f2; }
+                    h4, h3 { font-size: 13pt; font-weight: bold; margin-bottom: 0.5rem; padding-top: 1rem; }
+                </style>
+                </head>
+                <body>
+                    <div class="print-header">
+                        <img src="${logoSrc}" alt="Logo">
+                        <h1>Công Ty Tnhh Dịch Vụ Vận Tải Du Lịch Hoàng Quý</h1>
+                        <h2>${reportTitle}</h2>
+                    </div>
+                    <div class="print-main-content">
+                        ${printContent}
+                    </div>
+                    <div class="print-footer">
+                        <p>Ngày ${new Date().getDate()} tháng ${new Date().getMonth() + 1} năm ${new Date().getFullYear()}</p>
+                        <p><strong>Giám đốc</strong></p>
+                        <p class="signature">Đào Đức Hoàng</p>
+                    </div>
+                </body>
+                </html>`;
 
-            // Header
-            printWindow.document.write('<div class="print-header">');
-            printWindow.document.write('<img src="' + logoSrc + '" alt="Logo">');
-            printWindow.document.write('<h1>Công Ty Tnhh Dịch Vụ Vận Tải Du Lịch Hoàng Quý</h1>');
-            printWindow.document.write('<h2>' + reportTitle + '</h2>');
-            printWindow.document.write('</div>');
-
-            // Main Content
-            printWindow.document.write('<div class="print-main-content">');
-            printWindow.document.write(printContent);
-            printWindow.document.write('</div>');
-
-            // Footer
-            printWindow.document.write('<div class="print-footer">');
-            const today = new Date();
-            printWindow.document.write(`<p>Ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}</p>`);
-            printWindow.document.write('<p><strong>Giám đốc</strong></p>');
-            printWindow.document.write('<p class="signature">Đào Đức Hoàng</p>');
-            printWindow.document.write('</div>');
-
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.focus();
-            setTimeout(function(){
-                printWindow.print();
-                printWindow.close();
-            }, 250);
+            const blob = new Blob(['\ufeff', htmlContent], {
+                type: 'application/msword'
+            });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${reportTitle.replace(/ /g, '_')}.doc`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         main();
