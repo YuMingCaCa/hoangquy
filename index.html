@@ -38,20 +38,6 @@
         .print-button:hover {
             background-color: #374151; /* gray-700 */
         }
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #print-area, #print-area * {
-                visibility: visible;
-            }
-            #print-area {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -78,6 +64,10 @@
                 <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-6 border-b pb-3">Thêm Chuyến Đi Mới</h2>
                     <form id="trip-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label for="trip-start-date" class="block text-sm font-medium text-gray-700">Ngày Bắt Đầu</label><input type="date" id="trip-start-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                            <div><label for="trip-end-date" class="block text-sm font-medium text-gray-700">Ngày Kết Thúc</label><input type="date" id="trip-end-date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3" required></div>
+                        </div>
                         <div><label for="car-select" class="block text-sm font-medium text-gray-700">Chọn Xe</label><select id="car-select" name="car-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
                         <div><label for="driver-select" class="block text-sm font-medium text-gray-700">Chọn Lái Xe</label><select id="driver-select" name="driver-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
                         <div><label for="customer-select" class="block text-sm font-medium text-gray-700">Chọn Khách Hàng</label><select id="customer-select" name="customer-select" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></select></div>
@@ -98,7 +88,7 @@
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Các Chuyến Đi Gần Đây</h2>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Xe</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tài xế</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khách Hàng</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th></tr></thead><tbody id="trips-list" class="bg-white divide-y divide-gray-200"></tbody></table>
+                        <table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời Gian</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Xe</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tài xế</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Khách Hàng</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng Thái</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hành động</th></tr></thead><tbody id="trips-list" class="bg-white divide-y divide-gray-200"></tbody></table>
                     </div>
                 </div>
             </div>
@@ -198,6 +188,9 @@
             loadCustomers();
             loadAndRenderTrips();
             populateReportFilters();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('trip-start-date').value = today;
+            document.getElementById('trip-end-date').value = today;
             document.getElementById('report-month').value = new Date().toISOString().slice(0, 7);
         }
         
@@ -394,10 +387,14 @@
             const carSelect = document.getElementById('car-select');
             const driverSelect = document.getElementById('driver-select');
             const customerSelect = document.getElementById('customer-select');
-            
+            const startDate = document.getElementById('trip-start-date').value;
+            const endDate = document.getElementById('trip-end-date').value;
+
             if (!carSelect.value) { alert("Vui lòng chọn xe."); return; }
             if (!driverSelect.value) { alert("Vui lòng chọn lái xe."); return; }
             if (!customerSelect.value) { alert("Vui lòng chọn khách hàng."); return; }
+            if (!startDate || !endDate) { alert("Vui lòng chọn ngày bắt đầu và kết thúc."); return; }
+            if (new Date(endDate) < new Date(startDate)) { alert("Ngày kết thúc không thể trước ngày bắt đầu."); return; }
 
             const startKm = parseFloat(document.getElementById('start-km').value);
             const endKm = parseFloat(document.getElementById('end-km').value);
@@ -409,12 +406,13 @@
                 carId: carSelect.value, carName: carSelect.options[carSelect.selectedIndex].text,
                 driverId: driverSelect.value, driverName: driverSelect.options[driverSelect.selectedIndex].text,
                 customerId: customerSelect.value, customerName: customerSelect.options[customerSelect.selectedIndex].text,
+                startDate: startDate,
+                endDate: endDate,
                 startKm: startKm, endKm: endKm,
                 pickupLocation: document.getElementById('pickup-location').value,
                 dropoffLocation: document.getElementById('dropoff-location').value,
                 fuelCost: parseFloat(document.getElementById('fuel-cost').value),
                 tripFare: tripFare,
-                driverSalary: tripFare * 0.20,
                 isPaid: document.getElementById('is-paid').checked,
                 createdAt: new Date().toISOString()
             };
@@ -424,6 +422,9 @@
             db.set('trips', trips);
 
             document.getElementById('trip-form').reset();
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('trip-start-date').value = today;
+            document.getElementById('trip-end-date').value = today;
             alert('Đã lưu chuyến đi thành công!');
             loadAndRenderTrips();
             document.querySelector('.nav-btn[data-page="trips-list-page"]').click();
@@ -442,14 +443,18 @@
             }
 
             trips.forEach(trip => {
-                const tripDate = new Date(trip.createdAt);
-                const formattedDate = `${tripDate.getDate()}/${tripDate.getMonth() + 1}/${tripDate.getFullYear()}`;
+                const startDate = new Date(trip.startDate);
+                const endDate = new Date(trip.endDate);
+                const formattedStartDate = `${startDate.getDate()}/${startDate.getMonth() + 1}`;
+                const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`;
+                const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} - ${formattedEndDate}`;
+                
                 const statusHtml = trip.isPaid 
                     ? `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Đã trả</span>`
                     : `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Còn nợ</span>`;
 
                 tripsList.innerHTML += `<tr>
-                    <td class="px-6 py-4 whitespace-nowrap">${formattedDate}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">${dateDisplay}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${trip.carName}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${trip.driverName}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${trip.customerName}</td>
@@ -469,10 +474,14 @@
             const trips = db.get('trips');
             const trip = trips.find(t => t.id === tripId);
             if (trip) {
-                const tripDate = new Date(trip.createdAt);
-                const formattedDateTime = `${tripDate.getHours()}:${String(tripDate.getMinutes()).padStart(2, '0')} - ${tripDate.getDate()}/${tripDate.getMonth() + 1}/${tripDate.getFullYear()}`;
+                const startDate = new Date(trip.startDate);
+                const endDate = new Date(trip.endDate);
+                const formattedStartDate = `${startDate.getDate()}/${startDate.getMonth() + 1}/${startDate.getFullYear()}`;
+                const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`;
+                const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} đến ${formattedEndDate}`;
+
                 const statusText = trip.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán';
-                document.getElementById('modal-content').innerHTML = `<p><strong>Ngày tạo:</strong> ${formattedDateTime}</p><p><strong>Xe:</strong> ${trip.carName}</p><p><strong>Tài xế:</strong> ${trip.driverName}</p><p><strong>Khách hàng:</strong> ${trip.customerName} (${statusText})</p><p><strong>Lộ trình:</strong> ${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p><p><strong>Số KM:</strong> ${trip.startKm} km ➔ ${trip.endKm} km (Tổng: ${trip.endKm - trip.startKm} km)</p><hr><p class="text-green-600"><strong>Doanh thu:</strong> ${currencyFormatter.format(trip.tripFare)}</p><p class="text-red-600"><strong>Chi phí xăng:</strong> ${currencyFormatter.format(trip.fuelCost)}</p><p class="text-yellow-600"><strong>Lương tài xế (20%):</strong> ${currencyFormatter.format(trip.driverSalary)}</p>`;
+                document.getElementById('modal-content').innerHTML = `<p><strong>Thời gian:</strong> ${dateDisplay}</p><p><strong>Xe:</strong> ${trip.carName}</p><p><strong>Tài xế:</strong> ${trip.driverName}</p><p><strong>Khách hàng:</strong> ${trip.customerName} (${statusText})</p><p><strong>Lộ trình:</strong> ${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p><p><strong>Số KM:</strong> ${trip.startKm} km ➔ ${trip.endKm} km (Tổng: ${trip.endKm - trip.startKm} km)</p><hr><p class="text-green-600"><strong>Doanh thu:</strong> ${currencyFormatter.format(trip.tripFare)}</p><p class="text-red-600"><strong>Chi phí xăng:</strong> ${currencyFormatter.format(trip.fuelCost)}</p>`;
                 document.getElementById('trip-detail-modal').classList.remove('hidden');
             }
         }
@@ -502,10 +511,35 @@
         function getMonthlyData(year, month) {
             const trips = db.get('trips');
             const monthlyTrips = trips.filter(trip => {
-                const tripDate = new Date(trip.createdAt);
+                const tripDate = new Date(trip.startDate);
                 return tripDate.getFullYear() === year && tripDate.getMonth() + 1 === month;
             });
             return monthlyTrips;
+        }
+
+        function calculateTripDurationInDays(startDateStr, endDateStr) {
+            const start = new Date(startDateStr);
+            const end = new Date(endDateStr);
+            const diffTime = Math.abs(end - start);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        }
+
+        function hasSundayInRange(startDateStr, endDateStr) {
+            let current = new Date(startDateStr);
+            const end = new Date(endDateStr);
+            while (current <= end) {
+                if (current.getDay() === 0) return true; // 0 = Sunday
+                current.setDate(current.getDate() + 1);
+            }
+            return false;
+        }
+
+        function calculateDriverSalary(trip) {
+            const baseSalary = trip.tripFare * 0.20;
+            const duration = calculateTripDurationInDays(trip.startDate, trip.endDate);
+            const overnightBonus = duration > 1 ? 500000 : 0;
+            const sundayBonus = hasSundayInRange(trip.startDate, trip.endDate) ? 100000 : 0;
+            return baseSalary + overnightBonus + sundayBonus;
         }
 
         function generateMonthlyReport() {
@@ -515,13 +549,15 @@
             const [year, month] = monthInput.split('-').map(Number);
             const monthlyTrips = getMonthlyData(year, month);
             
-            let totalRevenue = 0, totalFuelCost = 0;
+            let totalRevenue = 0, totalFuelCost = 0, totalSalaries = 0;
             const driverReportData = {};
             const carReportData = {};
 
             monthlyTrips.forEach(trip => {
                 totalRevenue += trip.tripFare;
                 totalFuelCost += trip.fuelCost;
+                const driverSalary = calculateDriverSalary(trip);
+                totalSalaries += driverSalary;
 
                 if (!carReportData[trip.carName]) {
                     carReportData[trip.carName] = { revenue: 0, fuel: 0 };
@@ -531,22 +567,13 @@
 
                 if (trip.driverName) {
                     if (!driverReportData[trip.driverName]) {
-                        driverReportData[trip.driverName] = { tripCount: 0, baseSalary: 0, workDays: new Set() };
+                        driverReportData[trip.driverName] = { tripCount: 0, totalSalary: 0 };
                     }
                     const driverData = driverReportData[trip.driverName];
                     driverData.tripCount++;
-                    driverData.baseSalary += trip.driverSalary;
-                    driverData.workDays.add(trip.createdAt.split('T')[0]); 
+                    driverData.totalSalary += driverSalary;
                 }
             });
-
-            let totalSalaries = 0;
-            for (const driverName in driverReportData) {
-                const driverData = driverReportData[driverName];
-                const dailyAllowance = driverData.workDays.size * 50000;
-                driverData.totalSalary = driverData.baseSalary + dailyAllowance;
-                totalSalaries += driverData.totalSalary;
-            }
 
             const totalExpenses = totalFuelCost + totalSalaries;
             const netProfit = totalRevenue - totalExpenses;
@@ -623,9 +650,13 @@
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Doanh Thu</th>
                         </tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
             carTrips.forEach(trip => {
-                const tripDate = new Date(trip.createdAt);
+                const startDate = new Date(trip.startDate);
+                const endDate = new Date(trip.endDate);
+                const formattedStartDate = `${startDate.getDate()}/${startDate.getMonth() + 1}`;
+                const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}`;
+                const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} - ${formattedEndDate}`;
                 html += `<tr>
-                            <td class="px-4 py-2 whitespace-nowrap">${tripDate.getDate()}/${tripDate.getMonth() + 1}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${dateDisplay}</td>
                             <td class="px-4 py-2 whitespace-nowrap">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</td>
                             <td class="px-4 py-2 whitespace-nowrap">${trip.endKm - trip.startKm} km</td>
                             <td class="px-4 py-2 whitespace-nowrap text-red-600">${currencyFormatter.format(trip.fuelCost)}</td>
@@ -656,29 +687,37 @@
                 return;
             }
             
-            const workDays = new Set(driverTrips.map(t => t.createdAt.split('T')[0]));
-            const workDayCount = workDays.size;
-            const baseSalary = driverTrips.reduce((sum, trip) => sum + trip.driverSalary, 0);
-            const totalSalary = baseSalary + (workDayCount * 50000);
+            const totalSalary = driverTrips.reduce((sum, trip) => sum + calculateDriverSalary(trip), 0);
 
             let html = `<div class="flex justify-between items-center"><h4>Chi tiết lương của tài xế ${driverId}</h4><button onclick="printReport('driver-detail-report', 'Báo Cáo Lương Chi Tiết ${driverId}')" class="print-button">In Báo Cáo</button></div>
                         <div class="my-2 p-3 bg-gray-50 rounded-lg">
-                            <p><strong>Số ngày công:</strong> ${workDayCount} ngày</p>
                             <p><strong>Tổng lương tháng:</strong> <span class="font-bold text-yellow-800">${currencyFormatter.format(totalSalary)}</span></p>
                         </div>
                         <div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="bg-gray-50"><tr>
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Ngày</th>
                         <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lộ Trình</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Số KM</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lương (20%)</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Lương Cơ Bản (20%)</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Phụ Cấp</th>
                         </tr></thead><tbody class="bg-white divide-y divide-gray-200">`;
             driverTrips.forEach(trip => {
-                const tripDate = new Date(trip.createdAt);
+                const startDate = new Date(trip.startDate);
+                const endDate = new Date(trip.endDate);
+                const formattedStartDate = `${startDate.getDate()}/${startDate.getMonth() + 1}`;
+                const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}`;
+                const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} - ${formattedEndDate}`;
+                
+                const duration = calculateTripDurationInDays(trip.startDate, trip.endDate);
+                const overnightBonus = duration > 1 ? 500000 : 0;
+                const sundayBonus = hasSundayInRange(trip.startDate, trip.endDate) ? 100000 : 0;
+                let bonusText = [];
+                if(overnightBonus > 0) bonusText.push("Qua đêm");
+                if(sundayBonus > 0) bonusText.push("Chủ nhật");
+
                 html += `<tr>
-                            <td class="px-4 py-2 whitespace-nowrap">${tripDate.getDate()}/${tripDate.getMonth() + 1}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${dateDisplay}</td>
                             <td class="px-4 py-2 whitespace-nowrap">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">${trip.endKm - trip.startKm} km</td>
-                            <td class="px-4 py-2 whitespace-nowrap">${currencyFormatter.format(trip.driverSalary)}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${currencyFormatter.format(trip.tripFare * 0.20)}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">${currencyFormatter.format(overnightBonus + sundayBonus)} <span class="text-xs text-gray-500">${bonusText.join(', ')}</span></td>
                          </tr>`;
             });
             html += '</tbody></table></div>';
@@ -742,9 +781,13 @@
                                                 <tbody class="bg-white divide-y divide-gray-200">`;
                 
                 customerTrips.forEach(trip => {
-                    const tripDate = new Date(trip.createdAt);
+                    const startDate = new Date(trip.startDate);
+                    const endDate = new Date(trip.endDate);
+                    const formattedStartDate = `${startDate.getDate()}/${startDate.getMonth() + 1}`;
+                    const formattedEndDate = `${endDate.getDate()}/${endDate.getMonth() + 1}/${endDate.getFullYear()}`;
+                    const dateDisplay = trip.startDate === trip.endDate ? formattedEndDate : `${formattedStartDate} - ${formattedEndDate}`;
                     customerHtml += `<tr>
-                                        <td class="px-4 py-2 whitespace-nowrap">${tripDate.getDate()}/${tripDate.getMonth() + 1}</td>
+                                        <td class="px-4 py-2 whitespace-nowrap">${dateDisplay}</td>
                                         <td class="px-4 py-2">
                                             <p class="font-medium">Xe: ${trip.carName}</p>
                                             <p class="text-sm text-gray-600">${trip.pickupLocation} ➔ ${trip.dropoffLocation}</p>
@@ -781,7 +824,7 @@
             
             const clonedEl = printContentEl.cloneNode(true);
             
-            clonedEl.querySelectorAll('.print-button').forEach(btn => btn.remove());
+            clonedEl.querySelectorAll('.print-button, .mark-as-paid-btn').forEach(btn => btn.remove());
             const printContent = clonedEl.innerHTML;
 
             const logoSrc = document.getElementById('company-logo').src; 
