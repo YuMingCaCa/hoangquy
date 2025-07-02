@@ -49,6 +49,7 @@
             <p class="text-gray-600 mt-2">Dễ dàng theo dõi và quản lý mọi chuyến đi.</p>
         </header>
 
+        <!-- Thanh Menu Điều Hướng -->
         <nav class="bg-white rounded-xl shadow-md p-2 flex flex-wrap justify-center gap-2 mb-6">
             <button data-page="add-trip-page" class="nav-btn active flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Thêm Chuyến Đi</button>
             <button data-page="trips-list-page" class="nav-btn flex-grow sm:flex-grow-0 text-center px-4 py-2 font-semibold text-gray-700 bg-gray-100 hover:bg-indigo-500 hover:text-white rounded-lg">Danh Sách Chuyến Đi</button>
@@ -58,6 +59,7 @@
         </nav>
 
         <main>
+            <!-- Trang 1: Thêm Chuyến Đi -->
             <div id="add-trip-page" class="page-view">
                 <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-6 border-b pb-3">Thêm Chuyến Đi Mới</h2>
@@ -81,6 +83,7 @@
                 </div>
             </div>
 
+            <!-- Trang 2: Danh Sách Chuyến Đi -->
             <div id="trips-list-page" class="page-view hidden">
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Các Chuyến Đi Gần Đây</h2>
@@ -90,6 +93,7 @@
                 </div>
             </div>
 
+            <!-- Trang 3: Báo Cáo Tháng -->
             <div id="report-page" class="page-view hidden">
                  <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Thống Kê Theo Tháng</h2>
@@ -128,6 +132,7 @@
                 </div>
             </div>
 
+            <!-- Trang 4: Công Nợ Khách Hàng -->
             <div id="customer-debt-page" class="page-view hidden">
                 <div class="bg-white p-6 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-semibold mb-4 border-b pb-3">Công Nợ Khách Hàng</h2>
@@ -139,6 +144,7 @@
                 </div>
             </div>
 
+            <!-- Trang 5: Quản Lý -->
             <div id="management-page" class="page-view hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="bg-white p-6 rounded-xl shadow-lg">
@@ -161,6 +167,7 @@
         </main>
     </div>
 
+    <!-- Modals -->
     <div id="trip-detail-modal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"><div class="relative top-20 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-md bg-white"><div class="flex justify-between items-center border-b pb-3"><h3 class="text-2xl font-bold text-gray-900">Chi Tiết Chuyến Đi</h3><button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button></div><div id="modal-content" class="mt-4 space-y-4"></div></div></div>
     <div id="confirm-delete-modal" class="modal fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50"><div class="relative top-40 mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white"><div class="mt-3 text-center"><div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div><h3 class="text-lg leading-6 font-medium text-gray-900 mt-4" id="confirm-title">Xóa mục này?</h3><div class="mt-2 px-7 py-3"><p class="text-sm text-gray-500" id="confirm-message">Bạn có chắc chắn muốn thực hiện hành động này không? Thao tác này không thể hoàn tác.</p></div><div class="items-center px-4 py-3 space-x-4"><button id="confirm-delete-btn" class="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md w-auto hover:bg-red-700">Xóa</button><button id="cancel-delete-btn" class="px-4 py-2 bg-gray-200 text-gray-800 text-base font-medium rounded-md w-auto hover:bg-gray-300">Hủy</button></div></div></div></div>
 
@@ -865,6 +872,7 @@
             
             const clonedEl = printContentEl.cloneNode(true);
             
+            // Remove buttons before getting HTML
             clonedEl.querySelectorAll('.export-button, button[data-action="mark-paid"]').forEach(btn => btn.remove());
             const printContent = clonedEl.innerHTML;
 
@@ -874,18 +882,43 @@
                 <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
                 <head><meta charset='utf-8'><title>${reportTitle}</title>
                 <style>
-                    body { font-family: "Times New Roman", serif; }
-                    .print-header { text-align: center; margin-bottom: 40px; }
-                    .print-header img { max-height: 80px; margin-bottom: 10px; }
-                    .print-header h1 { font-size: 18pt; margin: 0; font-weight: bold; }
-                    .print-header h2 { font-size: 14pt; margin: 5px 0 0 0; font-weight: bold; }
-                    .print-footer { text-align: right; margin-top: 60px; padding-right: 50px; }
+                    body { font-family: "Times New Roman", serif; font-size: 10pt; }
+                    .print-header { text-align: center; margin-bottom: 25px; }
+                    .print-header img { max-height: 60px; margin-bottom: 10px; }
+                    .print-header h1 { font-size: 15pt; margin: 0; font-weight: bold; }
+                    .print-header h2 { font-size: 12pt; margin: 5px 0 0 0; font-weight: normal; font-style: italic; }
+                    .print-footer { text-align: right; margin-top: 40px; padding-right: 50px; font-size: 10pt; }
                     .print-footer p { margin: 0; }
-                    .print-footer .signature { margin-top: 80px; font-weight: bold; }
-                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                    th, td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 12pt; }
-                    th { background-color: #f2f2f2; }
-                    h4, h3 { font-size: 13pt; font-weight: bold; margin-bottom: 0.5rem; padding-top: 1rem; }
+                    .print-footer .signature { margin-top: 70px; font-weight: bold; }
+                    
+                    /* General content styling */
+                    h3 { font-size: 12pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; }
+                    h4 { font-size: 11pt; font-weight: bold; margin-top: 15px; margin-bottom: 8px; }
+                    p { margin: 4px 0; }
+
+                    /* Table styling */
+                    table { width: 100%; border-collapse: collapse; margin-top: 10px; page-break-inside: auto; }
+                    tr { page-break-inside: avoid; page-break-after: auto; }
+                    th, td { border: 1px solid #333; padding: 5px; text-align: left; font-size: 9pt; vertical-align: top;}
+                    th { background-color: #e9e9e9; font-weight: bold; }
+
+                    /* Specific overrides for compact layout */
+                    .grid > div {
+                        padding: 6px;
+                        margin: 0;
+                        border: 1px solid #ccc;
+                        margin-bottom: 5px;
+                        page-break-inside: avoid;
+                    }
+                    .grid > div p {
+                        margin: 0;
+                        padding: 2px 0;
+                    }
+                    .my-2, .bg-gray-50 {
+                        padding: 8px;
+                        border: 1px solid #ddd;
+                        margin-bottom: 10px;
+                    }
                 </style>
                 </head>
                 <body>
